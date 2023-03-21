@@ -25,4 +25,13 @@ public class clsSinhVien{
         this.anh = anh;
         this.idLop = idLop;
     }
+    public clsSinhVien(){
+        this.Msv = "";
+        this.hoTen = "";
+        this.ngaySinh= "";
+        this.gioiTinh = true;
+        this.diaChi = "";
+        this.anh = "";
+        this.idLop = "";
+    }
 }

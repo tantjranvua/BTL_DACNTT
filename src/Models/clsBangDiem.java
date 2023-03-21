@@ -11,6 +11,6 @@ package Models;
 public class clsBangDiem {
     public String Msv;
     public String idMon;
-    public String diem;
+    public float diem;
     public boolean tinhStrang;
 }

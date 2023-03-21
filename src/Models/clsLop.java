@@ -15,4 +15,14 @@ public class clsLop {
         this.idLop = idLop;
         this.GVCN = GVCN;
     }
+
+    public clsLop() {
+        this.idLop = "";
+        this.GVCN = "";
+    }
+   @Override
+    public String toString()
+    {
+        return idLop;
+    } 
 }
