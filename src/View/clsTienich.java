@@ -37,14 +37,14 @@ public class clsTienich {
         cbm.insertElementAt("Chọn lớp học", 0);
         cbb.setSelectedIndex(0);
     }
-    public static void HienthiAnh_Label(File ImageFile, JLabel lblHinhanh)
+    public static void HienthiAnh_Label(File ImageFile, JLabel lblanh)
     {
         try {
                 Image img1 = ImageIO.read(ImageFile);
-                Image img2 = img1.getScaledInstance(lblHinhanh.getWidth(), 
-                                             lblHinhanh.getHeight(), Image.SCALE_SMOOTH);
+                Image img2 = img1.getScaledInstance(lblanh.getWidth(), 
+                                             lblanh.getHeight(), Image.SCALE_SMOOTH);
                 ImageIcon icon = new ImageIcon(img2);
-                lblHinhanh.setIcon(icon);
+                lblanh.setIcon(icon);
             } catch (IOException ex) {
                 Logger.getLogger(frmThemSinhVien.class.getName()).log(Level.SEVERE, null, ex);
             }

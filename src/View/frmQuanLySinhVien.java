@@ -235,6 +235,13 @@ public class frmQuanLySinhVien extends javax.swing.JFrame {
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
+        int i = tblDSSinhVien.getSelectedRow();
+        String Msv = (String)tblDSSinhVien.getModel().getValueAt(i,0);
+        tbSinhVien bangSinhvien = new tbSinhVien();
+        frmSuaSinhVien formSuaSV = new frmSuaSinhVien();
+        formSuaSV.formQuanlySV = this;
+        formSuaSV.sinhvien = bangSinhvien.LaySinhvien(Msv);;
+        formSuaSV.setVisible(true);
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed

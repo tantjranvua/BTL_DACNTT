@@ -43,6 +43,29 @@ public class tbLop {
         }
         return dslop;
     }
+     public clsLop LayLop(String idLop)
+    {
+        clsLop lop = new clsLop();
+        Connection cnn = Database.KetnoiCSDL();
+        if(cnn!=null)
+        {
+            String sql = "SELECT * FROM tblLop WHERE idLop = ?";
+            try {
+                PreparedStatement stm = cnn.prepareStatement(sql);
+                stm.setString(1, idLop);
+                ResultSet rs = stm.executeQuery();
+                while(rs.next())//duyệt từng bản ghi kết quả select
+                {
+                    lop.idLop = rs.getString("idLop");
+                    lop.GVCN = rs.getString("GVCN");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(tbLop.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+        return lop;
+    }
     public boolean ThemLop(String idLop,String GVCN)
     {
         Connection cnn = Database.KetnoiCSDL();
