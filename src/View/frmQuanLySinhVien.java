@@ -81,7 +81,7 @@ public class frmQuanLySinhVien extends javax.swing.JFrame {
         txtSearch = new javax.swing.JTextField();
         cbbSearch = new javax.swing.JComboBox<>();
         btnSearch = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnQuanLyLop = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
@@ -158,7 +158,12 @@ public class frmQuanLySinhVien extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setText("jButton5");
+        btnQuanLyLop.setText("QL Lớp");
+        btnQuanLyLop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuanLyLopActionPerformed(evt);
+            }
+        });
 
         jButton6.setText("jButton6");
 
@@ -195,7 +200,7 @@ public class frmQuanLySinhVien extends javax.swing.JFrame {
                 .addGap(189, 189, 189)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton5)
+                .addComponent(btnQuanLyLop)
                 .addGap(18, 18, 18)
                 .addComponent(jButton6)
                 .addGap(80, 80, 80))
@@ -215,7 +220,7 @@ public class frmQuanLySinhVien extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(8, 8, 8)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton5)
+                            .addComponent(btnQuanLyLop)
                             .addComponent(jButton6)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
@@ -320,6 +325,13 @@ public class frmQuanLySinhVien extends javax.swing.JFrame {
         formThemSV.setVisible(true);
     }//GEN-LAST:event_btnThemActionPerformed
 
+    private void btnQuanLyLopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuanLyLopActionPerformed
+        // TODO add your handling code here:
+        frmQuanlyLop formQuanlyLop = new frmQuanlyLop();
+        formQuanlyLop.formQuanlySV = this;
+        formQuanlyLop.setVisible(true);
+    }//GEN-LAST:event_btnQuanLyLopActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -356,12 +368,12 @@ public class frmQuanLySinhVien extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnQuanLyLop;
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnXoa;
     private javax.swing.JComboBox<String> cbbSearch;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;

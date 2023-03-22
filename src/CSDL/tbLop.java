@@ -75,7 +75,7 @@ public class tbLop {
             try {
                 PreparedStatement stm = cnn.prepareStatement(sql);
                 stm.setString(1, idLop);
-                stm.setString(1, GVCN);
+                stm.setString(2, GVCN);
                 int n = stm.executeUpdate();
                 if(n<=0)
                     return false;
