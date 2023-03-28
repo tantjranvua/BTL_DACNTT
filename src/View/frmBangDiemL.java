@@ -8,7 +8,12 @@ import CSDL.tbBangDiem;
 import CSDL.tbLop;
 import Models.clsBangDiem;
 import Models.clsLop;
+import java.awt.Color;
+import java.awt.Component;
 import java.util.Vector;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -16,7 +21,8 @@ import javax.swing.table.DefaultTableModel;
  * @author tantanmanh
  */
 public class frmBangDiemL extends javax.swing.JFrame {
-
+    String idLop = "";
+    public frmQuanlyLop csQLLop;
     /**
      * Creates new form frmBangDiemL
      */
@@ -28,12 +34,16 @@ public class frmBangDiemL extends javax.swing.JFrame {
         tblBangDiem.getColumnModel().getColumn(3).setMaxWidth(65);
         tblBangDiem.getColumnModel().getColumn(4).setMaxWidth(250);
         tblBangDiem.getColumnModel().getColumn(5).setMaxWidth(50);
-        HienthiDSBangDiem();
+        changeTable(tblBangDiem,5);
     }
-    public void HienthiDSBangDiem()
+    public void HienthiDS(String idLop)
     {
         tbBangDiem bangBangdiem = new tbBangDiem();
-        Vector<clsBangDiem> dsbangdiem = bangBangdiem.LayDSBangDiemL("");
+        tbLop bangLop = new tbLop();
+        clsLop lop = bangLop.LayLop(idLop);
+        txtGVCN.setText(lop.GVCN);
+        txtidLop.setText(this.idLop);
+        Vector<clsBangDiem> dsbangdiem = bangBangdiem.LayDSBangDiemLSearch(idLop);
         if(dsbangdiem.size()>0)
         {
             DefaultTableModel dtm = (DefaultTableModel)tblBangDiem.getModel();
@@ -43,6 +53,24 @@ public class frmBangDiemL extends javax.swing.JFrame {
              dtm.addRow(new Object[]{bangdiem.Msv, bangdiem.hoTen,bangdiem.idLop,bangdiem.idMon,bangdiem.tenMon, bangdiem.diem});
             }
         }
+    }
+    public void changeTable(JTable table, int column_index) {
+        for(int i=0;i<=column_index;i++){
+            table.getColumnModel().getColumn(i).setCellRenderer(new DefaultTableCellRenderer() {
+                @Override
+                public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                    final Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                    float diem = Float.parseFloat(table.getValueAt(row, 5).toString());
+                    if (diem>=(float)4) {
+                        c.setBackground(Color.GREEN);
+                    } else {
+                        c.setBackground(Color.RED);
+                    }
+                    return c;
+                }
+            });
+        }
+        
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -60,10 +88,17 @@ public class frmBangDiemL extends javax.swing.JFrame {
         txtidLop = new javax.swing.JTextField();
         txtGVCN = new javax.swing.JTextField();
         btnSearch = new javax.swing.JButton();
+        btnSuadiem = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(600, 300));
         setSize(new java.awt.Dimension(600, 300));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         tblBangDiem.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -99,6 +134,20 @@ public class frmBangDiemL extends javax.swing.JFrame {
             }
         });
 
+        btnSuadiem.setText("Sửa điểm");
+        btnSuadiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuadiemActionPerformed(evt);
+            }
+        });
+
+        btnBack.setText("Quay lại");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -114,7 +163,11 @@ public class frmBangDiemL extends javax.swing.JFrame {
                     .addComponent(txtidLop))
                 .addGap(27, 27, 27)
                 .addComponent(btnSearch)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(35, 35, 35)
+                .addComponent(btnSuadiem)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnBack)
+                .addGap(23, 23, 23))
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -132,10 +185,13 @@ public class frmBangDiemL extends javax.swing.JFrame {
                             .addComponent(txtGVCN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(14, 14, 14)
-                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, 0)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
+                            .addComponent(btnSuadiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
         );
 
         pack();
@@ -167,6 +223,54 @@ public class frmBangDiemL extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        String idLop = this.idLop;
+        tbBangDiem bangBangdiem = new tbBangDiem();
+        tbLop bangLop = new tbLop();
+        clsLop lop = bangLop.LayLop(idLop);
+        txtGVCN.setText(lop.GVCN);
+        txtidLop.setText(this.idLop);
+        Vector<clsBangDiem> dsbangdiem = bangBangdiem.LayDSBangDiemLSearch(idLop);
+        if(dsbangdiem.size()>0)
+        {
+            DefaultTableModel dtm = (DefaultTableModel)tblBangDiem.getModel();
+            dtm.setRowCount(0);//xóa các dòng cũ nếu có
+            for(clsBangDiem bangdiem : dsbangdiem)
+            {
+             dtm.addRow(new Object[]{bangdiem.Msv, bangdiem.hoTen,bangdiem.idLop,bangdiem.idMon,bangdiem.tenMon, bangdiem.diem});
+            }
+        }
+    }//GEN-LAST:event_formWindowOpened
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        csQLLop.HienthiDSLop();
+        this.dispose();
+    }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnSuadiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuadiemActionPerformed
+        // TODO add your handling code here:
+        clsBangDiem ttBangDiem = new clsBangDiem();
+        int i = tblBangDiem.getSelectedRow();
+         if(i<0)
+            JOptionPane.showMessageDialog(this, "Chưa chọn sinh viên");
+        else
+        {
+            ttBangDiem.Msv = (String)tblBangDiem.getModel().getValueAt(i,0);
+            ttBangDiem.idMon = (String)tblBangDiem.getModel().getValueAt(i,3);
+            ttBangDiem.idLop = (String)tblBangDiem.getModel().getValueAt(i,2);
+            ttBangDiem.diem = (Float)tblBangDiem.getModel().getValueAt(i,5);
+            if(ttBangDiem.diem>=4) ttBangDiem.tinhTrang = true;
+            else ttBangDiem.tinhTrang = false;
+            frmSuaDiem formSuaDiem = new frmSuaDiem();
+            formSuaDiem.ttBangDiem = ttBangDiem;
+            formSuaDiem.csBDLop = this;
+            formSuaDiem.method =2;
+            formSuaDiem.setVisible(true);
+        }
+    }//GEN-LAST:event_btnSuadiemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -204,7 +308,9 @@ public class frmBangDiemL extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnSearch;
+    private javax.swing.JButton btnSuadiem;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;

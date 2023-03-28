@@ -5,7 +5,12 @@ import CSDL.tbBangDiem;
 import CSDL.tbMon;
 import Models.clsBangDiem;
 import Models.clsMon;
+import java.awt.Color;
+import java.awt.Component;
 import java.util.Vector;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -18,7 +23,8 @@ import javax.swing.table.DefaultTableModel;
  * @author tantanmanh
  */
 public class frmBangDiemM extends javax.swing.JFrame {
-
+    String idMon= "";
+    public frmQuanLySinhVien csQLSV;
     /**
      * Creates new form frmBangDiemM
      */
@@ -29,9 +35,10 @@ public class frmBangDiemM extends javax.swing.JFrame {
         tblBangDiem.getColumnModel().getColumn(2).setMaxWidth(100);
         tblBangDiem.getColumnModel().getColumn(3).setMaxWidth(100);
         tblBangDiem.getColumnModel().getColumn(4).setMaxWidth(100);
-        HienthiDSBangDiem();
+        HienthiDS(idMon);
+        changeTable(tblBangDiem,4);
     }
-    public void HienthiDSBangDiem()
+    public void HienthiDS(String idMon)
     {
         tbBangDiem bangBangdiem = new tbBangDiem();
         Vector<clsBangDiem> dsbangdiem = bangBangdiem.LayDSBangDiemM("");
@@ -44,6 +51,24 @@ public class frmBangDiemM extends javax.swing.JFrame {
              dtm.addRow(new Object[]{bangdiem.Msv, bangdiem.hoTen,bangdiem.idLop,bangdiem.idMon, bangdiem.diem});
             }
         }
+    }
+    public void changeTable(JTable table, int column_index) {
+        for(int i=0;i<=column_index;i++){
+            table.getColumnModel().getColumn(i).setCellRenderer(new DefaultTableCellRenderer() {
+                @Override
+                public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                    final Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                    float diem = Float.parseFloat(table.getValueAt(row, 4).toString());
+                    if (diem>=(float)4) {
+                        c.setBackground(Color.GREEN);
+                    } else {
+                        c.setBackground(Color.RED);
+                    }
+                    return c;
+                }
+            });
+        }
+        
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -62,6 +87,8 @@ public class frmBangDiemM extends javax.swing.JFrame {
         txtidMon = new javax.swing.JTextField();
         txttenMon = new javax.swing.JTextField();
         txtSearch = new javax.swing.JButton();
+        btnSuadiem = new javax.swing.JButton();
+        btnback = new javax.swing.JButton();
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -108,6 +135,20 @@ public class frmBangDiemM extends javax.swing.JFrame {
             }
         });
 
+        btnSuadiem.setText("Sửa điểm");
+        btnSuadiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuadiemActionPerformed(evt);
+            }
+        });
+
+        btnback.setText("Quay lại");
+        btnback.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnbackActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -123,7 +164,11 @@ public class frmBangDiemM extends javax.swing.JFrame {
                     .addComponent(txtidMon))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtSearch)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addComponent(btnSuadiem)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnback)
+                .addGap(21, 21, 21))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE)
@@ -144,7 +189,10 @@ public class frmBangDiemM extends javax.swing.JFrame {
                             .addComponent(txttenMon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(14, 14, 14)
-                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnSuadiem, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnback, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
                 .addContainerGap())
@@ -175,6 +223,33 @@ public class frmBangDiemM extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_txtSearchActionPerformed
+
+    private void btnSuadiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuadiemActionPerformed
+        // TODO add your handling code here:
+        clsBangDiem ttBangDiem = new clsBangDiem();
+        int i = tblBangDiem.getSelectedRow();
+         if(i<0)
+            JOptionPane.showMessageDialog(this, "Chưa chọn sinh viên");
+        else
+        {
+            ttBangDiem.Msv = (String)tblBangDiem.getModel().getValueAt(i,0);
+            ttBangDiem.idMon = (String)tblBangDiem.getModel().getValueAt(i,3);
+            ttBangDiem.idLop = (String)tblBangDiem.getModel().getValueAt(i,2);
+            ttBangDiem.diem = (Float)tblBangDiem.getModel().getValueAt(i,4);
+            if(ttBangDiem.diem>=4) ttBangDiem.tinhTrang = true;
+            else ttBangDiem.tinhTrang = false;
+            frmSuaDiem formSuaDiem = new frmSuaDiem();
+            formSuaDiem.ttBangDiem = ttBangDiem;
+            formSuaDiem.csBDMon = this;
+            formSuaDiem.method =3;
+            formSuaDiem.setVisible(true);
+        }
+    }//GEN-LAST:event_btnSuadiemActionPerformed
+
+    private void btnbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbackActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnbackActionPerformed
 
     /**
      * @param args the command line arguments
@@ -212,6 +287,8 @@ public class frmBangDiemM extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSuadiem;
+    private javax.swing.JButton btnback;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
