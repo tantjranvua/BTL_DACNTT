@@ -8,11 +8,16 @@ package Models;
  *
  * @author tantanmanh
  */
-public class clsMonHoc {
+public class clsMon {
     public String idMon;
     public String tenMon;
-    public clsMonHoc(String idMon, String tenMon){
+    public clsMon(String idMon, String tenMon){
         this.idMon = idMon;
         this.tenMon = tenMon;
     }
+    public clsMon(){
+        this.idMon = "";
+        this.tenMon = "";
+    }
+    
 }

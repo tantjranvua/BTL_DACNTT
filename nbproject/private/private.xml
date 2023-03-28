@@ -3,17 +3,25 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/tantanmanh/DACNTT/BTL_DACNTT/src/View/frmDangnhap.java</file>
-            <file>file:/home/tantanmanh/DACNTT/BTL_DACNTT/src/CSDL/tbSinhVien.java</file>
-            <file>file:/home/tantanmanh/DACNTT/BTL_DACNTT/src/View/frmQuanLySinhVien.java</file>
-            <file>file:/home/tantanmanh/DACNTT/BTL_DACNTT/src/Models/clsSinhVien.java</file>
+            <file>file:/home/tantanmanh/DACNTT/BTL_DACNTT/src/View/clsTienich.java</file>
             <file>file:/home/tantanmanh/DACNTT/BTL_DACNTT/src/CSDL/tbLop.java</file>
-            <file>file:/home/tantanmanh/DACNTT/BTL_DACNTT/src/View/frmThemSV.java</file>
-            <file>file:/home/tantanmanh/DACNTT/BTL_DACNTT/src/Models/clsMonHoc.java</file>
-            <file>file:/home/tantanmanh/DACNTT/BTL_DACNTT/src/Models/clsLop.java</file>
-            <file>file:/home/tantanmanh/DACNTT/BTL_DACNTT/src/CSDL/tbUser.java</file>
+            <file>file:/home/tantanmanh/DACNTT/BTL_DACNTT/src/View/frmSuaSinhVien.java</file>
+            <file>file:/home/tantanmanh/DACNTT/BTL_DACNTT/src/CSDL/tbBangDiem.java</file>
+            <file>file:/home/tantanmanh/DACNTT/BTL_DACNTT/src/View/frmSuaLop.java</file>
             <file>file:/home/tantanmanh/DACNTT/BTL_DACNTT/src/Models/clsBangDiem.java</file>
             <file>file:/home/tantanmanh/DACNTT/BTL_DACNTT/src/CSDL/Database.java</file>
+            <file>file:/home/tantanmanh/DACNTT/BTL_DACNTT/src/Models/clsMon.java</file>
+            <file>file:/home/tantanmanh/DACNTT/BTL_DACNTT/src/View/frmDangnhap.java</file>
+            <file>file:/home/tantanmanh/DACNTT/BTL_DACNTT/src/CSDL/tbSinhVien.java</file>
+            <file>file:/home/tantanmanh/DACNTT/BTL_DACNTT/src/View/frmQuanlyLop.java</file>
+            <file>file:/home/tantanmanh/DACNTT/BTL_DACNTT/src/View/frmQuanLySinhVien.java</file>
+            <file>file:/home/tantanmanh/DACNTT/BTL_DACNTT/src/View/frmBangDiemL.java</file>
+            <file>file:/home/tantanmanh/DACNTT/BTL_DACNTT/src/View/frmBangDiemSV.java</file>
+            <file>file:/home/tantanmanh/DACNTT/BTL_DACNTT/src/Models/clsLop.java</file>
+            <file>file:/home/tantanmanh/DACNTT/BTL_DACNTT/src/CSDL/tbUser.java</file>
+            <file>file:/home/tantanmanh/DACNTT/BTL_DACNTT/src/CSDL/tbMon.java</file>
+            <file>file:/home/tantanmanh/DACNTT/BTL_DACNTT/src/View/frmThemSinhVien.java</file>
+            <file>file:/home/tantanmanh/DACNTT/BTL_DACNTT/src/View/frmThemLop.java</file>
         </group>
     </open-files>
 </project-private>

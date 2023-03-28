@@ -43,7 +43,7 @@ public class tbLop {
         }
         return dslop;
     }
-     public clsLop LayLop(String idLop)
+    public clsLop LayLop(String idLop)
     {
         clsLop lop = new clsLop();
         Connection cnn = Database.KetnoiCSDL();

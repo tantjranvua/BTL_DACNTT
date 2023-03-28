@@ -10,7 +10,28 @@ package Models;
  */
 public class clsBangDiem {
     public String Msv;
+    public String hoTen;
     public String idMon;
+    public String idLop;
+    public String tenMon;
     public float diem;
-    public boolean tinhStrang;
+    public boolean tinhTrang;
+    public clsBangDiem(){
+        this.Msv = "";
+        this.hoTen = "";
+        this.idMon = "";
+        this.idLop = "";
+        this.tenMon = "";
+        this.diem = (float)0;
+        this.tinhTrang = false;
+    }
+    public clsBangDiem(String Msv, String hoTen, String idMon, String idLop, String tenMon, float diem, boolean tinhStrang){
+        this.Msv = Msv;
+        this.hoTen = hoTen;
+        this.idMon = idMon;
+        this.idLop = idLop;
+        this.tenMon = tenMon;
+        this.diem = diem;
+        this.tinhTrang = tinhStrang;
+    }
 }
