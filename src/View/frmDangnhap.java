@@ -145,9 +145,9 @@ public class frmDangnhap extends javax.swing.JFrame {
         if(ketqua)
         {
             JOptionPane.showMessageDialog(this, "Đăng nhập thành công");
-//            frmQuanlySinhvien formQLSV = new frmQuanlySinhvien();
-//            formQLSV.setVisible(true);
-//            this.dispose();
+            frmQuanLySinhVien formQLSV = new frmQuanLySinhVien();
+            formQLSV.setVisible(true);
+            this.dispose();
         }
         else
         {

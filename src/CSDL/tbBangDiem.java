@@ -150,7 +150,38 @@ public class tbBangDiem {
         if(cnn!=null)
         {
             String sql = "SELECT sv.Msv, sv.hoTen, m.idMon, m.tenMon, bd.diem, bd.tinhTrang,sv.idLop FROM tblBangdiem bd "
-                    + "LEFT JOIN tblMon m on bd.idMon = m.idMon LEFT JOIN tblSinhvien sv on bd.Msv = sv.Msv WHERE sv.idLop LIKE ?";
+                    + "LEFT JOIN tblMon m on bd.idMon = m.idMon LEFT JOIN tblSinhvien sv on bd.Msv = sv.Msv WHERE m.idMon LIKE ?";
+            try {
+                PreparedStatement stm = cnn.prepareStatement(sql);
+                stm.setString(1, idMon);
+                ResultSet rs = stm.executeQuery();
+                while(rs.next())//duyệt từng bản ghi kết quả select
+                {   
+                    clsBangDiem bangdiem = new clsBangDiem();
+                    bangdiem.Msv = rs.getString("Msv");
+                    bangdiem.hoTen = rs.getString("hoTen");
+                    bangdiem.idLop = rs.getString("idLop");
+                    bangdiem.idMon = rs.getString("idMon");
+                    bangdiem.tenMon = rs.getString("tenMon");
+                    bangdiem.diem = rs.getFloat("diem");
+                    bangdiem.tinhTrang = rs.getBoolean("tinhTrang");
+                    dsbangdiem.add(bangdiem);// Cần override hàm to_String tại class models.Lop
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(tbLop.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+        return dsbangdiem;
+    }
+    public Vector<clsBangDiem> LayDSBangDiemMSearch(String idMon)
+    {
+        Vector<clsBangDiem> dsbangdiem = new Vector<clsBangDiem>();
+        Connection cnn = Database.KetnoiCSDL();
+        if(cnn!=null)
+        {
+            String sql = "SELECT sv.Msv, sv.hoTen, m.idMon, m.tenMon, bd.diem, bd.tinhTrang,sv.idLop FROM tblBangdiem bd "
+                    + "LEFT JOIN tblMon m on bd.idMon = m.idMon LEFT JOIN tblSinhvien sv on bd.Msv = sv.Msv WHERE m.idMon = ?";
             try {
                 PreparedStatement stm = cnn.prepareStatement(sql);
                 stm.setString(1, idMon);
@@ -192,6 +223,54 @@ public class tbBangDiem {
                 }
                 stm.setString(3, idMon);
                 stm.setString(4, Msv);
+                int n = stm.executeUpdate();
+                if(n<=0)
+                    return false;
+                else
+                    return true;
+            } catch (SQLException ex) {
+                Logger.getLogger(tbLop.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
+            }
+        }
+        else
+            return false;
+    }
+    public boolean ThemBangDiem(String Msv,String idMon,float diem,boolean tinhtrang)
+    {
+        Connection cnn = Database.KetnoiCSDL();
+        if(cnn!=null)
+        {
+            String sql = "INSERT INTO `tblBangdiem` (`Msv`, `idMon`, `diem`, `tinhTrang`) VALUES (?, ?, ?, ?);";
+            try {
+                java.sql.PreparedStatement stm = cnn.prepareStatement(sql);
+                stm.setString(1, Msv);
+                stm.setString(2, idMon);
+                stm.setFloat(3, diem);
+                stm.setBoolean(4, tinhtrang);
+                int n = stm.executeUpdate();
+                if(n<=0)
+                    return false;
+                else
+                    return true;
+            } catch (SQLException ex) {
+                Logger.getLogger(tbLop.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
+            }
+        }
+        else
+            return false;
+    }
+    public boolean XoaBangDiem(String Msv, String idMon)
+    {
+        Connection cnn = Database.KetnoiCSDL();
+        if(cnn!=null)
+        {
+            String sql = "DELETE FROM `tblBangdiem` WHERE `tblBangdiem`.`Msv` = ? AND `tblBangdiem`.`idMon` = ?";
+            try {
+                PreparedStatement stm = cnn.prepareStatement(sql);
+                stm.setString(1, Msv);
+                stm.setString(2, idMon);
                 int n = stm.executeUpdate();
                 if(n<=0)
                     return false;

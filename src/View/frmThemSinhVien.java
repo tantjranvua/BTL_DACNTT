@@ -89,6 +89,39 @@ public class frmThemSinhVien extends javax.swing.JFrame {
 
         jLabel6.setText("Lớp học:");
 
+        txtMsv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMsvActionPerformed(evt);
+            }
+        });
+        txtMsv.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtMsvKeyReleased(evt);
+            }
+        });
+
+        txthoTen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txthoTenActionPerformed(evt);
+            }
+        });
+        txthoTen.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txthoTenKeyPressed(evt);
+            }
+        });
+
+        txtdiaChi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtdiaChiActionPerformed(evt);
+            }
+        });
+        txtdiaChi.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtdiaChiKeyPressed(evt);
+            }
+        });
+
         btgGioitinh.add(rdNam);
         rdNam.setSelected(true);
         rdNam.setText("Nam");
@@ -247,39 +280,46 @@ public class frmThemSinhVien extends javax.swing.JFrame {
         if(cbLop.getSelectedIndex()>0)
         {
             clsLop lh = (clsLop) cbLop.getSelectedItem();
-            System.out.print(lh.idLop);
+//            System.out.print(lh.idLop);
             idLop = lh.idLop;
-        }
-        String anh = txtanh.getText();
-        //copy file ảnh từ thư mục chọn vào thư mục Images của dự án
-        //copy ảnh vào thư mục src/Images/
-            if (ImageFile != null) {
-                //String img = ImageFile.getName();
-                String filecopy = "src/Images/" + anh;
-                File fc = new File(filecopy);
-                try {
-                    Files.copy(ImageFile.toPath(), fc.toPath(),StandardCopyOption.REPLACE_EXISTING);
-                    
-                } catch (IOException ex) {
-                    Logger.getLogger(frmThemSinhVien.class.getName()).log(Level.SEVERE, null, ex);
+            String anh = txtanh.getText();
+            //copy file ảnh từ thư mục chọn vào thư mục Images của dự án
+            //copy ảnh vào thư mục src/Images/
+                if (ImageFile != null) {
+                    //String img = ImageFile.getName();
+                    String filecopy = "src/Images/" + anh;
+                    File fc = new File(filecopy);
+                    try {
+                        Files.copy(ImageFile.toPath(), fc.toPath(),StandardCopyOption.REPLACE_EXISTING);
+
+                    } catch (IOException ex) {
+                        Logger.getLogger(frmThemSinhVien.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
+            //tạo đối tượng sinh viên và thêm vào bảng tbSinhVien
+            clsSinhVien sv = new clsSinhVien(Msv,hoTen,ngaySinh,gioiTinh,diaChi,anh,idLop);
+            tbSinhVien bangSinhVien = new tbSinhVien();
+            boolean kq = bangSinhVien.ThemSinhvien(sv);
+            if(kq==true)
+            {
+                JOptionPane.showMessageDialog(null, "Thêm thành công");
+                formQuanlySV.HienthiDSSinhvien();
+                formQuanlySV.setVisible(true);
+                this.dispose();
             }
-        //tạo đối tượng sinh viên và thêm vào bảng tbSinhVien
-        clsSinhVien sv = new clsSinhVien(Msv,hoTen,ngaySinh,gioiTinh,diaChi,anh,idLop);
-        tbSinhVien bangSinhVien = new tbSinhVien();
-        boolean kq = bangSinhVien.ThemSinhvien(sv);
-        if(kq==true)
-        {
-            JOptionPane.showMessageDialog(null, "Thêm thành công");
-            formQuanlySV.HienthiDSSinhvien();
+            else
+                JOptionPane.showMessageDialog(null, "Lỗi thêm sinh viên");
         }
-        else
-            JOptionPane.showMessageDialog(null, "Lỗi thêm sinh viên");
+        else{
+            JOptionPane.showMessageDialog(null, "Mời chọn Lớp");
+        }
+        
     }//GEN-LAST:event_btDongYActionPerformed
 
     private void btDonglaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDonglaiActionPerformed
         // TODO add your handling code here:
         formQuanlySV.HienthiDSSinhvien();
+        formQuanlySV.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btDonglaiActionPerformed
 
@@ -301,6 +341,39 @@ public class frmThemSinhVien extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnChonanhActionPerformed
 
+    private void txthoTenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txthoTenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txthoTenActionPerformed
+
+    private void txthoTenKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txthoTenKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode()==10){
+            txtngaySinh.requestFocus();
+        }
+    }//GEN-LAST:event_txthoTenKeyPressed
+
+    private void txtMsvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMsvActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMsvActionPerformed
+
+    private void txtdiaChiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtdiaChiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtdiaChiActionPerformed
+
+    private void txtdiaChiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtdiaChiKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode()==10){
+            cbLop.requestFocus();
+        }
+    }//GEN-LAST:event_txtdiaChiKeyPressed
+
+    private void txtMsvKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMsvKeyReleased
+        // TODO add your handling code here:
+        if(evt.getKeyCode()==10){
+            txthoTen.requestFocus();
+        }
+    }//GEN-LAST:event_txtMsvKeyReleased
+                                                                   
     /**
      * @param args the command line arguments
      */

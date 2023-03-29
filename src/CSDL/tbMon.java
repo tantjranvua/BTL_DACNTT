@@ -19,25 +19,25 @@ import java.util.logging.Logger;
  * @author tantanmanh
  */
 public class tbMon {
-    public Vector<clsMon> LayDSBangDiem()
+    public Vector<clsMon> LayDSMon()
     {
         Vector<clsMon> dsmon = new Vector<clsMon>();
         Connection cnn = Database.KetnoiCSDL();
         if(cnn!=null)
         {
-            String sql = "SELECT * FROM tblBangdiem";
+            String sql = "SELECT * FROM tblMon";
             try {
                 Statement stm = cnn.createStatement();
                 ResultSet rs = stm.executeQuery(sql);
                 while(rs.next())//duyệt từng bản ghi kết quả select
                 {
                     clsMon mon = new clsMon();
-                    mon.tenMon = rs.getString("Msv");
+                    mon.tenMon = rs.getString("tenMon");
                     mon.idMon = rs.getString("idMon");
-                    dsmon.add(mon);// Cần override hàm to_String tại class models.Lop
+                    dsmon.add(mon);// Cần override hàm to_String tại class models.Mon
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(tbLop.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(tbMon.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
@@ -60,10 +60,79 @@ public class tbMon {
                     mon.tenMon = rs.getString("tenMon");
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(tbLop.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(tbMon.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
         return mon;
+    }
+    public boolean XoaMon(String idMon)
+    {
+        Connection cnn = Database.KetnoiCSDL();
+        if(cnn!=null)
+        {
+            String sql = "DELETE FROM tblMon WHERE idMon=?";
+            try {
+                java.sql.PreparedStatement stm = cnn.prepareStatement(sql);
+                stm.setString(1, idMon);
+                int n = stm.executeUpdate();
+                if(n<=0)
+                    return false;
+                else
+                    return true;
+            } catch (SQLException ex) {
+                Logger.getLogger(tbMon.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
+            }
+        }
+        else
+            return false;
+    }
+    public boolean SuaMon(String idMon,String tenMon)
+    {
+        Connection cnn = Database.KetnoiCSDL();
+        if(cnn!=null)
+        {
+            String sql = 
+             "UPDATE tblMon SET tenMon=? WHERE idMon=?";
+            try {
+                java.sql.PreparedStatement stm = cnn.prepareStatement(sql);
+                stm.setString(1, tenMon);
+                stm.setString(2, idMon);
+                int n = stm.executeUpdate();
+                if(n<=0)
+                    return false;
+                else
+                    return true;
+            } catch (SQLException ex) {
+                Logger.getLogger(tbMon.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
+            }
+        }
+        else
+            return false;
+    }
+    public boolean ThemMon(String idMon,String tenMon)
+    {
+        Connection cnn = Database.KetnoiCSDL();
+        if(cnn!=null)
+        {
+            String sql = "INSERT INTO tblMon VALUES(?,?)";
+            try {
+                java.sql.PreparedStatement stm = cnn.prepareStatement(sql);
+                stm.setString(1, idMon);
+                stm.setString(2, tenMon);
+                int n = stm.executeUpdate();
+                if(n<=0)
+                    return false;
+                else
+                    return true;
+            } catch (SQLException ex) {
+                Logger.getLogger(tbLop.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
+            }
+        }
+        else
+            return false;
     }
 }

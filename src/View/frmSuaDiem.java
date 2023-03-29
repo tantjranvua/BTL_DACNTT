@@ -6,6 +6,8 @@ package View;
 
 import CSDL.tbBangDiem;
 import Models.clsBangDiem;
+import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -62,6 +64,15 @@ public class frmSuaDiem extends javax.swing.JFrame {
         txtMsv.setEditable(false);
 
         txtidMon.setEditable(false);
+
+        txtdiem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtdiemKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtdiemKeyTyped(evt);
+            }
+        });
 
         rbtntinhTrang.setText("Qua môn");
 
@@ -144,9 +155,18 @@ public class frmSuaDiem extends javax.swing.JFrame {
 
     private void btnbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbackActionPerformed
         // TODO add your handling code here:
-        if(this.method==1) this.csBDSV.HienthiDS(ttBangDiem.Msv);
-        if(this.method==2) this.csBDLop.HienthiDS(ttBangDiem.idLop);
-        if(this.method==3) this.csBDMon.HienthiDS(ttBangDiem.idMon);
+        if(this.method==1){
+            this.csBDSV.HienthiDS(ttBangDiem.Msv);
+            this.csBDSV.setVisible(true);
+        }
+        if(this.method==2){
+            this.csBDLop.HienthiDS(ttBangDiem.idLop);
+            this.csBDLop.setVisible(true);
+        }
+        if(this.method==3){
+            this.csBDMon.HienthiDS(ttBangDiem.idMon);
+            this.csBDMon.setVisible(true);
+        }
         this.dispose();
     }//GEN-LAST:event_btnbackActionPerformed
 
@@ -155,12 +175,14 @@ public class frmSuaDiem extends javax.swing.JFrame {
         txtMsv.setText(ttBangDiem.Msv);
         txtidMon.setText(ttBangDiem.idMon);
         txtdiem.setText(Float.toString(ttBangDiem.diem));
+        txtdiem.requestFocus();
         if(ttBangDiem.tinhTrang){
             rbtntinhTrang.setSelected(true);
         }
         else{
             rbtntinhTrang.setSelected(false);
         }
+        
     }//GEN-LAST:event_formWindowOpened
 
     private void btnDongYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDongYActionPerformed
@@ -168,15 +190,42 @@ public class frmSuaDiem extends javax.swing.JFrame {
         String Msv = txtMsv.getText();
         String idMon = txtidMon.getText();
         float diem = Float.parseFloat(txtdiem.getText());
+        if (diem >(float)10){
+            JOptionPane.showMessageDialog(this, "Điểm vượt quá 10 sẽ được thay thế bằng 10");
+            diem = (float)10;
+        }
         boolean tinhTrang = false;
         if(rbtntinhTrang.isSelected()) tinhTrang = true;
         tbBangDiem bangdiem = new tbBangDiem();
         bangdiem.SuaDiem(Msv, idMon, diem, tinhTrang);
-        if(this.method==1) this.csBDSV.HienthiDS(ttBangDiem.Msv);
-        if(this.method==2) this.csBDLop.HienthiDS(ttBangDiem.idLop);
-        if(this.method==3) this.csBDMon.HienthiDS(ttBangDiem.idMon);
+        if(this.method==1){
+            this.csBDSV.HienthiDS(ttBangDiem.Msv);
+            this.csBDSV.setVisible(true);
+        }
+        if(this.method==2){
+            this.csBDLop.HienthiDS(ttBangDiem.idLop);
+            this.csBDLop.setVisible(true);
+        }
+        if(this.method==3){
+            this.csBDMon.HienthiDS(ttBangDiem.idMon);
+            this.csBDMon.setVisible(true);
+        }
         this.dispose();
     }//GEN-LAST:event_btnDongYActionPerformed
+
+    private void txtdiemKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtdiemKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode()==109){
+            JOptionPane.showMessageDialog(this, "Điểm không thể là số âm");
+        }
+    }//GEN-LAST:event_txtdiemKeyPressed
+
+    private void txtdiemKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtdiemKeyTyped
+        // TODO add your handling code here:
+        char c=evt.getKeyChar();
+        if(!(Character.isDigit(c) || (c==KeyEvent.VK_BACK_SPACE) || (c==KeyEvent.VK_DELETE)))
+            evt.consume();
+    }//GEN-LAST:event_txtdiemKeyTyped
 
     /**
      * @param args the command line arguments

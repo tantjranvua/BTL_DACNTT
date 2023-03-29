@@ -48,7 +48,13 @@ public class frmThemLop extends javax.swing.JFrame {
 
         jLabel2.setText("Tên lớp:");
 
-        btnDongy.setText("Đồng ý thêm");
+        txtidLop.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtidLopKeyPressed(evt);
+            }
+        });
+
+        btnDongy.setText("Đồng ý");
         btnDongy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDongyActionPerformed(evt);
@@ -64,6 +70,12 @@ public class frmThemLop extends javax.swing.JFrame {
 
         jLabel3.setText("GVCN:");
 
+        txtGVCN.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtGVCNKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -72,14 +84,14 @@ public class frmThemLop extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(54, 54, 54)
-                                .addComponent(btnDongy)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                                .addComponent(btnDong, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnDongy, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                                .addComponent(btnDong, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(22, 22, 22)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,6 +141,8 @@ public class frmThemLop extends javax.swing.JFrame {
             {
                 JOptionPane.showMessageDialog(this, "Thêm thành công");
                 csQLLop.HienthiDSLop();
+                csQLLop.setVisible(true);
+                this.dispose();
             }else
                 JOptionPane.showMessageDialog(this, "Lỗi thêm lớp học");
         }
@@ -137,8 +151,23 @@ public class frmThemLop extends javax.swing.JFrame {
     private void btnDongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDongActionPerformed
         // TODO add your handling code here:
         csQLLop.HienthiDSLop();
+        csQLLop.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnDongActionPerformed
+
+    private void txtidLopKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtidLopKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode()==10){
+            txtGVCN.requestFocus();
+        }
+    }//GEN-LAST:event_txtidLopKeyPressed
+
+    private void txtGVCNKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGVCNKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode()==10){
+            btnDongy.doClick();
+        }
+    }//GEN-LAST:event_txtGVCNKeyPressed
 
     /**
      * @param args the command line arguments

@@ -5,21 +5,19 @@
  */
 package View;
 
-import CSDL.tbLop;
-import Models.clsLop;
+import CSDL.tbMon;
 import javax.swing.JOptionPane;
 
 /**
  *
- * @author Tantanmanh
+ * @author Tran Manh Truong
  */
-public class frmSuaLop extends javax.swing.JFrame {
-   public clsLop ttLop;
-   public frmQuanlyLop csQLLop;
+public class frmThemMon extends javax.swing.JFrame {
+    public frmQuanlyMon csQLMon;
     /**
-     * Creates new form frmSuaLop
+     * Creates new form frmThemMonhoc
      */
-    public frmSuaLop() {
+    public frmThemMon() {
         initComponents();
     }
 
@@ -34,29 +32,25 @@ public class frmSuaLop extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtGVCN = new javax.swing.JTextField();
+        txtidMon = new javax.swing.JTextField();
         btnDongy = new javax.swing.JButton();
         btnDong = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        txtidLop = new javax.swing.JTextField();
+        txttenMon = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowOpened(java.awt.event.WindowEvent evt) {
-                formWindowOpened(evt);
-            }
-        });
+        setTitle("Thêm lớp học");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("SỬA LỚP HỌC");
+        jLabel1.setText("THÊM MÔN HỌC MỚI");
 
-        jLabel2.setText("GVCN");
+        jLabel2.setText("Mã môn:");
 
-        txtGVCN.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtidMon.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtGVCNKeyPressed(evt);
+                txtidMonKeyPressed(evt);
             }
         });
 
@@ -74,9 +68,13 @@ public class frmSuaLop extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("Mã lớp");
+        jLabel3.setText("Tên môn:");
 
-        txtidLop.setEditable(false);
+        txttenMon.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txttenMonKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -85,28 +83,25 @@ public class frmSuaLop extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(49, 49, 49)
-                                .addComponent(btnDongy, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                                .addComponent(btnDong, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(54, 54, 54)
+                                .addComponent(btnDongy, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                                .addComponent(btnDong, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(132, 132, 132)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtidLop)
-                                    .addComponent(txtGVCN, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE))))
-                        .addGap(0, 63, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
+                                .addGap(22, 22, 22)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel3))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addGap(30, 30, 30)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtidMon, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
+                                    .addComponent(txttenMon))))
+                        .addGap(0, 63, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -114,15 +109,15 @@ public class frmSuaLop extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtidLop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtGVCN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                    .addComponent(txtidMon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txttenMon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDongy)
                     .addComponent(btnDong))
@@ -134,45 +129,45 @@ public class frmSuaLop extends javax.swing.JFrame {
 
     private void btnDongyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDongyActionPerformed
         // TODO add your handling code here:
-        String GVCN = txtGVCN.getText();
-        if(GVCN.equals("")||GVCN.equals(ttLop.GVCN))
-        JOptionPane.showMessageDialog(this, "Chưa nhập tên Giáo viên chủ nhiệm "
-                + "Hoặc chưa có sự thay đổi");
+        String idMon = txtidMon.getText();
+        String tenMon = txttenMon.getText();
+        if(idMon.equals(""))
+            JOptionPane.showMessageDialog(this, "Chưa nhập tên lớp");
         else
         {
-            tbLop lop = new tbLop();
-            boolean kq = lop.SuaLop(ttLop.idLop,GVCN);
+            tbMon Monhoc = new tbMon();
+            boolean kq = Monhoc.ThemMon(idMon,tenMon);
             if(kq==true)
             {
-                JOptionPane.showMessageDialog(this, "Sửa thành công");
-                csQLLop.HienthiDSLop();
-                csQLLop.setVisible(true);
+                JOptionPane.showMessageDialog(this, "Thêm thành công");
+                csQLMon.HienthiDSMon();
+                csQLMon.setVisible(true);
                 this.dispose();
             }else
-            JOptionPane.showMessageDialog(this, "Lỗi sửa lớp học");
+                JOptionPane.showMessageDialog(this, "Lỗi thêm lớp học");
         }
     }//GEN-LAST:event_btnDongyActionPerformed
 
     private void btnDongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDongActionPerformed
         // TODO add your handling code here:
-        csQLLop.HienthiDSLop();
-        csQLLop.setVisible(true);
+        csQLMon.HienthiDSMon();
+        csQLMon.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnDongActionPerformed
 
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+    private void txtidMonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtidMonKeyPressed
         // TODO add your handling code here:
-        txtidLop.setText(ttLop.idLop);
-        txtGVCN.setText(ttLop.GVCN);
-        txtGVCN.requestFocus();
-    }//GEN-LAST:event_formWindowOpened
+        if(evt.getKeyCode()==10){
+            txttenMon.requestFocus();
+        }
+    }//GEN-LAST:event_txtidMonKeyPressed
 
-    private void txtGVCNKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGVCNKeyPressed
+    private void txttenMonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttenMonKeyPressed
         // TODO add your handling code here:
         if(evt.getKeyCode()==10){
             btnDongy.doClick();
         }
-    }//GEN-LAST:event_txtGVCNKeyPressed
+    }//GEN-LAST:event_txttenMonKeyPressed
 
     /**
      * @param args the command line arguments
@@ -191,21 +186,23 @@ public class frmSuaLop extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmSuaLop.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmThemMon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmSuaLop.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmThemMon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmSuaLop.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmThemMon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmSuaLop.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmThemMon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmSuaLop().setVisible(true);
+                new frmThemMon().setVisible(true);
             }
         });
     }
@@ -216,7 +213,7 @@ public class frmSuaLop extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField txtGVCN;
-    private javax.swing.JTextField txtidLop;
+    private javax.swing.JTextField txtidMon;
+    private javax.swing.JTextField txttenMon;
     // End of variables declaration//GEN-END:variables
 }

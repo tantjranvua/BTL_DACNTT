@@ -90,6 +90,18 @@ public class frmSuaSinhVien extends javax.swing.JFrame {
 
         txtMsv.setEditable(false);
 
+        txthoTen.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txthoTenKeyPressed(evt);
+            }
+        });
+
+        txtdiaChi.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtdiaChiKeyPressed(evt);
+            }
+        });
+
         btgGioitinh.add(rdNam);
         rdNam.setSelected(true);
         rdNam.setText("Nam");
@@ -123,6 +135,12 @@ public class frmSuaSinhVien extends javax.swing.JFrame {
         lblanh.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 102)));
 
         jLabel8.setText("Ngày sinh:");
+
+        txtngaySinh.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtngaySinhKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -224,6 +242,7 @@ public class frmSuaSinhVien extends javax.swing.JFrame {
         // TODO add your handling code here:
         txtMsv.setText(this.sinhvien.Msv);
         txthoTen.setText(this.sinhvien.hoTen);
+        txthoTen.requestFocus();
         txtngaySinh.setText(this.sinhvien.ngaySinh);
         txtdiaChi.setText(this.sinhvien.diaChi);
         if(this.sinhvien.gioiTinh==true)
@@ -287,6 +306,7 @@ public class frmSuaSinhVien extends javax.swing.JFrame {
     private void btDonglaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDonglaiActionPerformed
         // TODO add your handling code here:
         formQuanlySV.HienthiDSSinhvien();
+        formQuanlySV.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btDonglaiActionPerformed
 
@@ -307,6 +327,25 @@ public class frmSuaSinhVien extends javax.swing.JFrame {
             txtanh.setText(strTenTepAnh);
         }
     }//GEN-LAST:event_btnChonanhActionPerformed
+
+    private void txthoTenKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txthoTenKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode()==10){
+            txtngaySinh.requestFocus();
+        }
+    }//GEN-LAST:event_txthoTenKeyPressed
+
+    private void txtngaySinhKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtngaySinhKeyPressed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_txtngaySinhKeyPressed
+
+    private void txtdiaChiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtdiaChiKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode()==10){
+            cbLop.requestFocus();
+        }       
+    }//GEN-LAST:event_txtdiaChiKeyPressed
 
     /**
      * @param args the command line arguments

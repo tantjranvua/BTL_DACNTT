@@ -5,8 +5,9 @@
  */
 package View;
 
-import CSDL.tbLop;
-import Models.clsLop;
+
+import CSDL.tbMon;
+import Models.clsMon;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -16,25 +17,25 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Tantanmanh
  */
-public class frmQuanlyLop extends javax.swing.JFrame {
+public class frmQuanlyMon extends javax.swing.JFrame {
     frmQuanLySinhVien formQuanlySV;
     /**
-     * Creates new form frmQuanlyLophoc
+     * Creates new form frmQuanlymonhoc
      */
-    public frmQuanlyLop() {
+    public frmQuanlyMon() {
         initComponents();
-        HienthiDSLop();
+        HienthiDSMon();
     }
-    public void HienthiDSLop()
+    public void HienthiDSMon()
     {
-        tbLop bangLophoc = new tbLop();
-        Vector<clsLop> dslop = bangLophoc.LayDSLop();
-            DefaultTableModel dtm = (DefaultTableModel)tblLop.getModel();
-            dtm.setRowCount(0);//xóa các dòng cũ nếu có
-            for(clsLop lop : dslop)
-            {
-             dtm.addRow(new Object[]{lop.idLop,lop.GVCN});
-            }
+        tbMon bangmonhoc = new tbMon();
+        Vector<clsMon> dsMon = bangmonhoc.LayDSMon();
+        DefaultTableModel dtm = (DefaultTableModel)tblMon.getModel();
+        dtm.setRowCount(0);//xóa các dòng cũ nếu có
+        for(clsMon mon : dsMon)
+        {
+         dtm.addRow(new Object[]{mon.idMon,mon.tenMon});
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -47,12 +48,13 @@ public class frmQuanlyLop extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblLop = new javax.swing.JTable();
+        tblMon = new javax.swing.JTable();
         btnThem = new javax.swing.JButton();
         btnSua = new javax.swing.JButton();
         btnXoa = new javax.swing.JButton();
         btnXemdiem = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Quản lý các lơp học");
@@ -60,17 +62,17 @@ public class frmQuanlyLop extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("QUẢN LÝ LỚP HỌC");
+        jLabel1.setText("QUẢN LÝ MÔN HỌC");
 
-        tblLop.setModel(new javax.swing.table.DefaultTableModel(
+        tblMon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Mã lớp", "GVCN"
+                "Mã môn", "Tên môn"
             }
         ));
-        jScrollPane1.setViewportView(tblLop);
+        jScrollPane1.setViewportView(tblMon);
 
         btnThem.setText("THÊM");
         btnThem.addActionListener(new java.awt.event.ActionListener() {
@@ -107,26 +109,34 @@ public class frmQuanlyLop extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setText("Nhập điểm");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnXemdiem)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnSua)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnXoa)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnThem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnXemdiem, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE))
+                        .addGap(37, 37, 37)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                            .addComponent(btnSua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnXoa, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -136,13 +146,17 @@ public class frmQuanlyLop extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnXemdiem)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnThem)
                     .addComponent(btnSua)
-                    .addComponent(btnXoa)
-                    .addComponent(btnXemdiem)
-                    .addComponent(jButton1))
+                    .addComponent(btnXoa))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
         );
 
         pack();
@@ -150,27 +164,27 @@ public class frmQuanlyLop extends javax.swing.JFrame {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
-        frmThemLop cuasothem = new frmThemLop();
-        cuasothem.csQLLop = this;
+        frmThemMon cuasothem = new frmThemMon();
+        cuasothem.csQLMon = this;
         cuasothem.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
 //         TODO add your handling code here:
-        int i = tblLop.getSelectedRow();
+        int i = tblMon.getSelectedRow();
         if(i<0)
-            JOptionPane.showMessageDialog(this, "Chưa chọn lớp học");
+            JOptionPane.showMessageDialog(this, "Chưa chọn M học");
         else
         {
-            String idLop;
-            idLop = (String)tblLop.getModel().getValueAt(i,0);
-            tbLop lophoc = new tbLop();
-            boolean kq = lophoc.XoaLop(idLop);
+            String idmon;
+            idmon = (String)tblMon.getModel().getValueAt(i,0);
+            tbMon monhoc = new tbMon();
+            boolean kq = monhoc.XoaMon(idmon);
             if(kq==true)
             {
                 JOptionPane.showMessageDialog(this, "Xóa thành công");
-                HienthiDSLop();
+                HienthiDSMon();
             }
             else
                 JOptionPane.showMessageDialog(this, "Lỗi xóa lớp học");
@@ -179,36 +193,36 @@ public class frmQuanlyLop extends javax.swing.JFrame {
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
-        int i = tblLop.getSelectedRow();
+        int i = tblMon.getSelectedRow();
         if(i<0)
-            JOptionPane.showMessageDialog(this, "Chưa chọn lớp học");
+            JOptionPane.showMessageDialog(this, "Chưa chọn M học");
         else
         {
-            String idLop;
-            String GVCN;
-            idLop = (String)tblLop.getModel().getValueAt(i,0);
-            GVCN = (String)tblLop.getModel().getValueAt(i,1);
-            clsLop lop = new clsLop(idLop, GVCN);
-            frmSuaLop csSualop = new frmSuaLop();
-            csSualop.ttLop = lop;
-            csSualop.csQLLop = this;
-            csSualop.setVisible(true);
+            String idMon;
+            String tenMon;
+            idMon = (String)tblMon.getModel().getValueAt(i,0);
+            tenMon = (String)tblMon.getModel().getValueAt(i,1);
+            clsMon mon = new clsMon(idMon, tenMon);
+            frmSuaMon csSuamon = new frmSuaMon();
+            csSuamon.ttMon = mon;
+            csSuamon.csQLMon = this;
+            csSuamon.setVisible(true);
             this.dispose();
         }
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnXemdiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemdiemActionPerformed
         // TODO add your handling code here:
-        int i = tblLop.getSelectedRow();
+        int i = tblMon.getSelectedRow();
         if(i<0)
-            JOptionPane.showMessageDialog(this, "Chưa chọn Lớp");
+            JOptionPane.showMessageDialog(this, "Chưa chọn M");
         else{
             String id;
-            id = (String)tblLop.getModel().getValueAt(i,0);
-            frmBangDiemL formBangDiemL = new frmBangDiemL();
-            formBangDiemL.idLop = id;
-            formBangDiemL.csQLLop = this;
-            formBangDiemL.setVisible(true);
+            id = (String)tblMon.getModel().getValueAt(i,0);
+            frmBangDiemM formBangDiemM = new frmBangDiemM();
+            formBangDiemM.idMon = id;
+            formBangDiemM.csQLM = this;
+            formBangDiemM.setVisible(true);
             this.dispose();
         }
     }//GEN-LAST:event_btnXemdiemActionPerformed
@@ -218,6 +232,25 @@ public class frmQuanlyLop extends javax.swing.JFrame {
         formQuanlySV.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        int i = tblMon.getSelectedRow();
+        if(i<0)
+            JOptionPane.showMessageDialog(this, "Chưa chọn Môn học");
+        else{
+            String idMon;
+            String tenMon;
+            idMon = (String)tblMon.getModel().getValueAt(i,0);
+            tenMon = (String)tblMon.getModel().getValueAt(i,1);
+            clsMon mon = new clsMon(idMon, tenMon);
+            frmNhapDiem formNhapDiem = new frmNhapDiem();
+            formNhapDiem.ttMon = mon;
+            formNhapDiem.csQLMon = this;
+            formNhapDiem.setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -236,21 +269,23 @@ public class frmQuanlyLop extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmQuanlyLop.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmQuanlyMon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmQuanlyLop.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmQuanlyMon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmQuanlyLop.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmQuanlyMon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmQuanlyLop.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frmQuanlyMon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmQuanlyLop().setVisible(true);
+                new frmQuanlyMon().setVisible(true);
             }
         });
     }
@@ -261,8 +296,9 @@ public class frmQuanlyLop extends javax.swing.JFrame {
     private javax.swing.JButton btnXemdiem;
     private javax.swing.JButton btnXoa;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblLop;
+    private javax.swing.JTable tblMon;
     // End of variables declaration//GEN-END:variables
 }

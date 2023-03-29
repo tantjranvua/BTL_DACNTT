@@ -190,8 +190,14 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txthoTen">
+      <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txthoTenKeyPressed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtdiaChi">
+      <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtdiaChiKeyPressed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="rdNam">
       <Properties>
@@ -268,6 +274,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtngaySinh">
+      <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtngaySinhKeyPressed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

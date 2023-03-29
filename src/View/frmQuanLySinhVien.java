@@ -49,19 +49,16 @@ public class frmQuanLySinhVien extends javax.swing.JFrame {
     {
         tbSinhVien bangSinhvien = new tbSinhVien();
         Vector<clsSinhVien> dsSinhvien = bangSinhvien.LayDSSinhvien();
-        if(dsSinhvien.size()>0)
+        DefaultTableModel dtm = (DefaultTableModel)tblDSSinhVien.getModel();
+        dtm.setRowCount(0);//xóa các dòng cũ nếu có
+        for(clsSinhVien sv : dsSinhvien)
         {
-            DefaultTableModel dtm = (DefaultTableModel)tblDSSinhVien.getModel();
-            dtm.setRowCount(0);//xóa các dòng cũ nếu có
-            for(clsSinhVien sv : dsSinhvien)
-            {
-                String gioitinh = (sv.gioiTinh)?"Nam":"Nữ";
-                //lấy tên lớp học trong csdl từ mã lớp
-                //tbLophoc bangLophoc = new tbLophoc();
-                //String tenlop = bangLophoc.LayTenLop(sv.malop);
-               
-             dtm.addRow(new Object[]{sv.Msv,sv.hoTen,sv.ngaySinh,gioitinh,sv.diaChi,sv.idLop});
-            }
+            String gioitinh = (sv.gioiTinh)?"Nam":"Nữ";
+            //lấy tên lớp học trong csdl từ mã lớp
+            //tbLophoc bangLophoc = new tbLophoc();
+            //String tenlop = bangLophoc.LayTenLop(sv.malop);
+
+         dtm.addRow(new Object[]{sv.Msv,sv.hoTen,sv.ngaySinh,gioitinh,sv.diaChi,sv.idLop});
         }
     }
     /**
@@ -166,7 +163,12 @@ public class frmQuanLySinhVien extends javax.swing.JFrame {
             }
         });
 
-        jButton6.setText("jButton6");
+        jButton6.setText("QL Môn");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 255));
@@ -248,12 +250,18 @@ public class frmQuanLySinhVien extends javax.swing.JFrame {
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
         int i = tblDSSinhVien.getSelectedRow();
-        String Msv = (String)tblDSSinhVien.getModel().getValueAt(i,0);
-        tbSinhVien bangSinhvien = new tbSinhVien();
-        frmSuaSinhVien formSuaSV = new frmSuaSinhVien();
-        formSuaSV.formQuanlySV = this;
-        formSuaSV.sinhvien = bangSinhvien.LaySinhvien(Msv);;
-        formSuaSV.setVisible(true);
+        if(i<0)
+            JOptionPane.showMessageDialog(this, "Chưa chọn sinh viên");
+        else
+        {
+            String Msv = (String)tblDSSinhVien.getModel().getValueAt(i,0);
+            tbSinhVien bangSinhvien = new tbSinhVien();
+            frmSuaSinhVien formSuaSV = new frmSuaSinhVien();
+            formSuaSV.formQuanlySV = this;
+            formSuaSV.sinhvien = bangSinhvien.LaySinhvien(Msv);;
+            formSuaSV.setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
@@ -274,7 +282,6 @@ public class frmQuanLySinhVien extends javax.swing.JFrame {
                         search = "2";
             }
         }
-        System.out.print(search);
         tbSinhVien bangSinhvien = new tbSinhVien();
         Vector<clsSinhVien> dsSinhvien = bangSinhvien.LayDSSinhvien(search,option);
         if(dsSinhvien.size()>0)
@@ -330,6 +337,7 @@ public class frmQuanLySinhVien extends javax.swing.JFrame {
         frmThemSinhVien formThemSV = new frmThemSinhVien();
         formThemSV.formQuanlySV = this;
         formThemSV.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnQuanLyLopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuanLyLopActionPerformed
@@ -337,6 +345,7 @@ public class frmQuanLySinhVien extends javax.swing.JFrame {
         frmQuanlyLop formQuanlyLop = new frmQuanlyLop();
         formQuanlyLop.formQuanlySV = this;
         formQuanlyLop.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnQuanLyLopActionPerformed
 
     private void btnXemDiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemDiemActionPerformed
@@ -351,9 +360,18 @@ public class frmQuanLySinhVien extends javax.swing.JFrame {
             formBangDiemSV.Msv = id;
             formBangDiemSV.csQLSV = this;
             formBangDiemSV.setVisible(true);
+            this.dispose();
         }
         
     }//GEN-LAST:event_btnXemDiemActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        frmQuanlyMon formQuanlyMon = new frmQuanlyMon();
+        formQuanlyMon.formQuanlySV = this;
+        formQuanlyMon.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments

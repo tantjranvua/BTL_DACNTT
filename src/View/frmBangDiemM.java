@@ -24,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class frmBangDiemM extends javax.swing.JFrame {
     String idMon= "";
-    public frmQuanLySinhVien csQLSV;
+    public frmQuanlyMon csQLM;
     /**
      * Creates new form frmBangDiemM
      */
@@ -35,21 +35,17 @@ public class frmBangDiemM extends javax.swing.JFrame {
         tblBangDiem.getColumnModel().getColumn(2).setMaxWidth(100);
         tblBangDiem.getColumnModel().getColumn(3).setMaxWidth(100);
         tblBangDiem.getColumnModel().getColumn(4).setMaxWidth(100);
-        HienthiDS(idMon);
         changeTable(tblBangDiem,4);
     }
     public void HienthiDS(String idMon)
     {
         tbBangDiem bangBangdiem = new tbBangDiem();
-        Vector<clsBangDiem> dsbangdiem = bangBangdiem.LayDSBangDiemM("");
-        if(dsbangdiem.size()>0)
+        Vector<clsBangDiem> dsbangdiem = bangBangdiem.LayDSBangDiemM(idMon);
+        DefaultTableModel dtm = (DefaultTableModel)tblBangDiem.getModel();
+        dtm.setRowCount(0);//xóa các dòng cũ nếu có
+        for(clsBangDiem bangdiem : dsbangdiem)
         {
-            DefaultTableModel dtm = (DefaultTableModel)tblBangDiem.getModel();
-            dtm.setRowCount(0);//xóa các dòng cũ nếu có
-            for(clsBangDiem bangdiem : dsbangdiem)
-            {
-             dtm.addRow(new Object[]{bangdiem.Msv, bangdiem.hoTen,bangdiem.idLop,bangdiem.idMon, bangdiem.diem});
-            }
+         dtm.addRow(new Object[]{bangdiem.Msv, bangdiem.hoTen,bangdiem.idLop,bangdiem.idMon, bangdiem.diem});
         }
     }
     public void changeTable(JTable table, int column_index) {
@@ -89,6 +85,7 @@ public class frmBangDiemM extends javax.swing.JFrame {
         txtSearch = new javax.swing.JButton();
         btnSuadiem = new javax.swing.JButton();
         btnback = new javax.swing.JButton();
+        btnXoa = new javax.swing.JButton();
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -102,13 +99,15 @@ public class frmBangDiemM extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         tblBangDiem.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Msv", "Họ tên", "Lớp", "Mã môn", "Điểm"
@@ -142,10 +141,17 @@ public class frmBangDiemM extends javax.swing.JFrame {
             }
         });
 
-        btnback.setText("Quay lại");
+        btnback.setText("Back");
         btnback.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnbackActionPerformed(evt);
+            }
+        });
+
+        btnXoa.setText("Xóa");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
             }
         });
 
@@ -154,24 +160,27 @@ public class frmBangDiemM extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addGap(34, 34, 34)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txttenMon, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
-                    .addComponent(txtidMon))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtSearch)
-                .addGap(28, 28, 28)
-                .addComponent(btnSuadiem)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnback)
-                .addGap(21, 21, 21))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addGap(34, 34, 34)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txttenMon, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                            .addComponent(txtidMon))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtSearch)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnSuadiem)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnXoa)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnback))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -192,7 +201,8 @@ public class frmBangDiemM extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnSuadiem, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnback, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(btnback, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
                 .addContainerGap())
@@ -243,13 +253,57 @@ public class frmBangDiemM extends javax.swing.JFrame {
             formSuaDiem.csBDMon = this;
             formSuaDiem.method =3;
             formSuaDiem.setVisible(true);
+            this.dispose();
         }
     }//GEN-LAST:event_btnSuadiemActionPerformed
 
     private void btnbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbackActionPerformed
         // TODO add your handling code here:
+        csQLM.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnbackActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        String idMon= this.idMon;
+        tbBangDiem bangBangdiem = new tbBangDiem();
+        tbMon bangMon = new tbMon();
+        clsMon mon = bangMon.LayMon(idMon);
+        txttenMon.setText(mon.tenMon);
+        txtidMon.setText(this.idMon);
+        Vector<clsBangDiem> dsbangdiem = bangBangdiem.LayDSBangDiemMSearch(idMon);
+        if(dsbangdiem.size()>0)
+        {
+            DefaultTableModel dtm = (DefaultTableModel)tblBangDiem.getModel();
+            dtm.setRowCount(0);//xóa các dòng cũ nếu có
+            for(clsBangDiem bangdiem : dsbangdiem)
+            {
+             dtm.addRow(new Object[]{bangdiem.Msv, bangdiem.hoTen,bangdiem.idLop,bangdiem.idMon, bangdiem.diem});
+            }
+        }
+    }//GEN-LAST:event_formWindowOpened
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        // TODO add your handling code here:
+        int i = tblBangDiem.getSelectedRow();
+        if(i<0)
+            JOptionPane.showMessageDialog(this, "Chưa chọn bảng điểm");
+        else
+        {
+            
+            String Msv = (String)tblBangDiem.getModel().getValueAt(i,0);
+            String idMon = (String)tblBangDiem.getModel().getValueAt(i,3);
+            tbBangDiem bangBangDiem = new tbBangDiem();
+            boolean kq = bangBangDiem.XoaBangDiem(Msv,idMon);
+            if(kq==true)
+            {
+                JOptionPane.showMessageDialog(this, "Xóa thành công");
+                HienthiDS("");
+            }
+            else
+                JOptionPane.showMessageDialog(this, "Lỗi xóa sinh viên");
+        }
+    }//GEN-LAST:event_btnXoaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -288,6 +342,7 @@ public class frmBangDiemM extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSuadiem;
+    private javax.swing.JButton btnXoa;
     private javax.swing.JButton btnback;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;

@@ -90,6 +90,7 @@ public class frmBangDiemL extends javax.swing.JFrame {
         btnSearch = new javax.swing.JButton();
         btnSuadiem = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
+        btnXoa = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(600, 300));
@@ -141,10 +142,17 @@ public class frmBangDiemL extends javax.swing.JFrame {
             }
         });
 
-        btnBack.setText("Quay lại");
+        btnBack.setText("Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBackActionPerformed(evt);
+            }
+        });
+
+        btnXoa.setText("Xóa");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
             }
         });
 
@@ -161,14 +169,16 @@ public class frmBangDiemL extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtGVCN, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
                     .addComponent(txtidLop))
-                .addGap(27, 27, 27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnSearch)
-                .addGap(35, 35, 35)
+                .addGap(18, 18, 18)
                 .addComponent(btnSuadiem)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnXoa)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnBack)
-                .addGap(23, 23, 23))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE)
+                .addGap(14, 14, 14))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 612, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,11 +195,12 @@ public class frmBangDiemL extends javax.swing.JFrame {
                             .addComponent(txtGVCN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(14, 14, 14)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
-                            .addComponent(btnSuadiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
+                            .addComponent(btnSuadiem, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
         );
@@ -213,15 +224,12 @@ public class frmBangDiemL extends javax.swing.JFrame {
         clsLop lop = bangLop.LayLop(idLop);
         txtGVCN.setText(lop.GVCN);
         Vector<clsBangDiem> dsbangdiem = bangBangdiem.LayDSBangDiemL(idLop);
-        if(dsbangdiem.size()>0)
-        {
             DefaultTableModel dtm = (DefaultTableModel)tblBangDiem.getModel();
             dtm.setRowCount(0);//xóa các dòng cũ nếu có
             for(clsBangDiem bangdiem : dsbangdiem)
             {
              dtm.addRow(new Object[]{bangdiem.Msv, bangdiem.hoTen,bangdiem.idLop,bangdiem.idMon,bangdiem.tenMon, bangdiem.diem});
             }
-        }
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -247,6 +255,7 @@ public class frmBangDiemL extends javax.swing.JFrame {
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
         csQLLop.HienthiDSLop();
+        csQLLop.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnBackActionPerformed
 
@@ -269,8 +278,31 @@ public class frmBangDiemL extends javax.swing.JFrame {
             formSuaDiem.csBDLop = this;
             formSuaDiem.method =2;
             formSuaDiem.setVisible(true);
+            this.dispose();
         }
     }//GEN-LAST:event_btnSuadiemActionPerformed
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        // TODO add your handling code here:
+        int i = tblBangDiem.getSelectedRow();
+        if(i<0)
+            JOptionPane.showMessageDialog(this, "Chưa chọn bảng điểm");
+        else
+        {
+            
+            String Msv = (String)tblBangDiem.getModel().getValueAt(i,0);
+            String idMon = (String)tblBangDiem.getModel().getValueAt(i,3);
+            tbBangDiem bangBangDiem = new tbBangDiem();
+            boolean kq = bangBangDiem.XoaBangDiem(Msv,idMon);
+            if(kq==true)
+            {
+                JOptionPane.showMessageDialog(this, "Xóa thành công");
+                HienthiDS("");
+            }
+            else
+                JOptionPane.showMessageDialog(this, "Lỗi xóa sinh viên");
+        }
+    }//GEN-LAST:event_btnXoaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -311,6 +343,7 @@ public class frmBangDiemL extends javax.swing.JFrame {
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnSuadiem;
+    private javax.swing.JButton btnXoa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
